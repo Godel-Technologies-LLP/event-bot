@@ -1,0 +1,22 @@
+flows:
+  service_reservation:
+    description: "Collect the requirements of the customer for the event for which they want our service"
+    persisted_slots:
+      - requested_service
+      - event_category
+      - venue_location
+      - event_date
+      - event_duration       
+    steps:
+      - collect: requested_service
+        description: "collect the service the customer is interested. Save only one word description of the service"
+      - collect: event_category
+        description: "collect the event category. Save only one word description of the event-category"
+      - collect: event_date
+        description: "Expect the date of the event and convert it to MM/DD/YYYY format. Use current year 2025"
+      - collect: event_duration
+        description: "Get the duration of the event in number of hours"  
+      - collect: venue_location
+        description: "Expect the city from the customer. if not ask for all the details. Save the data in a standard naming convention of the city"
+      - action: display_payment_terms
+

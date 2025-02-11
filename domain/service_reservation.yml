@@ -1,0 +1,96 @@
+
+slots:
+  requested_service:
+    type: text
+    mappings:
+      - type: from_llm
+        conditions:
+        - active_flow: service_reservation
+  event_category:
+    type: text
+    mappings:
+      - type: from_llm
+        conditions:
+        - active_flow: service_reservation      
+
+  event_date:
+    type: text
+    mappings:
+      - type: from_llm
+        conditions:
+        - active_flow: service_reservation  
+  
+  event_duration:
+    type: float
+    mappings:
+      - type: from_llm
+        conditions:
+        - active_flow: service_reservation      
+
+  venue_location:
+    type: text
+    mappings:
+      - type: from_llm
+        conditions:
+        - active_flow: service_reservation   
+  
+  # booking_confirmation:
+  #   type: bool
+  #   mappings:
+  #       - type: from_intent
+  #         intent: affirm
+  #         value: true
+  #         conditions:
+  #           - active_flow: service_reservation
+  #       - type: from_intent
+  #         intent: deny
+  #         value: false
+  #         conditions:
+  #           - active_flow: service_reservation        
+
+responses:
+  utter_ask_requested_service:
+  - text: "Type of service required?"
+    buttons:
+    - title: "Photography"
+      payload: "/SetSlots(requested_service=photography)"
+    - title: "Videography"
+      payload: "/SetSlots(requested_service=videography)"
+    - title: "360 Spinner"
+      payload: "/SetSlots(requested_service=360_spinner)"
+    - title: "Photo Booth"
+      payload: "/SetSlots(requested_service=photo_booth)"
+    - title: "Mirror Booth"
+      payload: "/SetSlots(requested_service=mirror_booth)"            
+
+  utter_ask_event_category:
+    - text: "Type of event?"
+      buttons:
+      - title: "Exhibition"
+        payload: "/SetSlots(event_category=exhibition)"
+      - title: "Conference"
+        payload: "/SetSlots(event_category=conference)"
+      - title: "Seminar"
+        payload: "/SetSlots(event_category=seminar)"
+      - title: "Annual Party"
+        payload: "/SetSlots(event_category=annual_party)"
+      - title: "Birthday Party"
+        payload: "/SetSlots(event_category=birthday_party)"
+      - title: "Anniversary"
+        payload: "/SetSlots(event_category=anniversary)"
+
+  utter_ask_event_date:
+    - text: "When is the event date"
+    
+  utter_ask_event_duration:
+    - text: "For how long do you need our service?" 
+
+  utter_ask_venue_location:
+    - text: "What is the event location (City Name)?"  
+
+
+  utter_greet_user:
+    - text: "Welcome to iClick! Make your events more fun and memorable with our services"
+
+actions:
+ - display_payment_terms
