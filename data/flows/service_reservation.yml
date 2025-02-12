@@ -6,7 +6,9 @@ flows:
       - event_category
       - venue_location
       - event_date
-      - event_duration       
+      - event_duration  
+      - customer_email
+      - customer_feedback     
     steps:
       - collect: requested_service        
       - collect: event_category
@@ -20,6 +22,11 @@ flows:
       - collect: is_user_interested
         next:
         - if: slots.is_user_interested
-          then: END
-        - else: END
+          then:
+          - collect: customer_email
+          # - action: send_user_confirmation_email
+            next: END
+        - else:
+          - collect: customer_feedback
+            next: END
 

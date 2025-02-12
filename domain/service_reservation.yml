@@ -46,7 +46,21 @@ slots:
           intent: deny
           value: false
           conditions:
-            - active_flow: service_reservation        
+            - active_flow: service_reservation
+  
+  customer_feedback:
+    type: text
+    mappings:
+      - type: from_llm
+        conditions:
+        - active_flow: service_reservation
+  
+  customer_email:
+    type: text
+    mappings:
+      - type: from_llm
+        conditions:
+        - active_flow: service_reservation            
 
 responses:
   utter_ask_requested_service:
@@ -91,6 +105,12 @@ responses:
 
   utter_greet_user:
     - text: "Welcome to iClick! Make your events more fun and memorable with our services"
+
+  utter_ask_customer_email:
+    - text: "Please share your email?"
+  
+  utter_ask_customer_feedback:
+    - text: "Do you have any specific feedback for us?"    
 
 actions:
  - display_payment_terms
