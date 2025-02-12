@@ -17,4 +17,9 @@ flows:
       - collect: venue_location
         description: "Expect the city from the customer. Save the data in a standard naming convention of the city"
       - action: display_payment_terms
+      - collect: is_user_interested
+        next:
+        - if: slots.is_user_interested
+          then: END
+        - else: END
 

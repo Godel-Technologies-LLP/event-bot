@@ -34,19 +34,19 @@ slots:
         conditions:
         - active_flow: service_reservation   
   
-  # booking_confirmation:
-  #   type: bool
-  #   mappings:
-  #       - type: from_intent
-  #         intent: affirm
-  #         value: true
-  #         conditions:
-  #           - active_flow: service_reservation
-  #       - type: from_intent
-  #         intent: deny
-  #         value: false
-  #         conditions:
-  #           - active_flow: service_reservation        
+  is_user_interested:
+    type: bool
+    mappings:
+        - type: from_intent
+          intent: affirm
+          value: true
+          conditions:
+            - active_flow: service_reservation
+        - type: from_intent
+          intent: deny
+          value: false
+          conditions:
+            - active_flow: service_reservation        
 
 responses:
   utter_ask_requested_service:
@@ -94,3 +94,4 @@ responses:
 
 actions:
  - display_payment_terms
+ - action_ask_is_user_interested

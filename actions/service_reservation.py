@@ -16,8 +16,10 @@ class ActionDisplayPaymentTerms(Action):
         requested_service = tracker.get_slot("requested_service")
         is_season = get_season_details(tracker.get_slot("event_date"))
         service_duration = tracker.get_slot("event_duration")
+        summary = get_event_summary(tracker)
         cost = get_cost_details(requested_service, is_season, service_duration)
         payment_terms = get_payment_terms(requested_service)
+        dispatcher.utter_message(summary)
         dispatcher.utter_message(cost)
         dispatcher.utter_message(payment_terms)
 
@@ -94,3 +96,29 @@ def get_cost_details(service, is_season, service_duration):
     return (
         f"Your booking for {service_duration} hours of {service} will cost {price} AED."
     )
+
+
+class ActionAskIsUserInterested(Action):
+    def name(self) -> Text:
+        return "action_ask_is_user_interested"
+
+    def run(self, dispatcher, tracker, domain):
+        text = f"Do you wish to proceed to the service booking?"
+
+        dispatcher.utter_message(
+            text=text,
+            buttons=[
+                {"title": "Yes", "payload": "/SetSlots(is_user_interested=True)"},
+                {"title": "No", "payload": "/SetSlots(is_user_interested=False)"},
+            ],
+        )
+        return []
+
+
+def get_event_summary(tracker):
+    summary = (
+        f'You have requested our {tracker.get_slot("requested_service")} service '
+        f'for a {tracker.get_slot("event_category")} at {tracker.get_slot("venue_location")} '
+        f'on {tracker.get_slot("event_date")}, lasting for {tracker.get_slot("event_duration")} hours. '
+    )
+    return summary
