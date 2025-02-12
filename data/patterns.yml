@@ -13,3 +13,20 @@ flows:
     steps:
       - action: utter_greet_user
       - link: service_reservation
+
+  pattern_completed:
+    description: Flow that asks if the user needs more help after completing their initiated use cases
+    name: pattern completed
+    steps:
+      - noop: true
+        next:
+        - if: slots.is_user_interested
+          then:
+          - action: utter_thank_interested_user
+          - action: action_restart
+            next: END
+        - else:
+          - action: utter_thank_disinterested_user
+          - action: action_restart
+            next: END
+      

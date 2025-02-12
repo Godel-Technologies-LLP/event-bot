@@ -112,6 +112,11 @@ responses:
   utter_ask_customer_feedback:
     - text: "Do you have any specific feedback for us?"    
 
+  utter_thank_interested_user:
+    - text: "Thank you for using our service. Our representative will get in touch with you. "
+  
+  utter_thank_disinterested_user:
+    - text: "We hope to serve you in the future. Thank you for your time."
 actions:
  - display_payment_terms
  - action_ask_is_user_interested
