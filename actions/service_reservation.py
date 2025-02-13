@@ -122,3 +122,49 @@ def get_event_summary(tracker):
         f'on {tracker.get_slot("event_date")}, lasting for {tracker.get_slot("event_duration")} hours. '
     )
     return summary
+
+
+class ActionAskRephrase(Action):
+    def name(self) -> Text:
+        return "action_ask_rephrase"
+
+    def run(self, dispatcher, tracker, domain):
+
+        last_requested_slot = get_latest_slot_requested(tracker.events)
+
+        if last_requested_slot:
+            text = (
+                f"I'm sorry, I'm not trained to understand your answer. Please adhere to one of the below formats:\n"
+                + "\n".join(
+                    f"{i}. {fmt}"
+                    for i, fmt in enumerate(
+                        accepted_formats[last_requested_slot], start=1
+                    )
+                )
+            )
+            dispatcher.utter_message(
+                text=text,
+            )
+            dispatcher.utter_message(
+                text="Let's do this again",
+            )
+        else:
+            text = "I'm sorry, I'm unable to assist you with your request at the moment. Please try again later."
+
+            dispatcher.utter_message(
+                text=text,
+            )
+        return []
+
+
+def get_latest_slot_requested(events_list):
+    for item in reversed(events_list):  # Iterate in reverse order
+        if item.get("flow_id") == "pattern_collect_information":
+            return item.get("metadata", {}).get(
+                "collect"
+            )  # Return the collect value if found
+
+
+accepted_formats = {
+    "event_date": ["20th of January", "20/01/2023", "20th January 2023"]
+}

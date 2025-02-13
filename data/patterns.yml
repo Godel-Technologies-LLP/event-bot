@@ -30,3 +30,25 @@ flows:
           - action: action_restart
             next: END
       
+
+  pattern_cannot_handle:
+    description: |
+      Conversation repair flow for addressing failed command generation scenarios
+    name: pattern cannot handle
+    steps:
+      - noop: true
+        next:
+          # chitchat fallback
+          - if: "'{{context.reason}}' = 'cannot_handle_chitchat'"
+            then:
+              - action: utter_cannot_handle
+                next: "END"
+          # fallback for things that are not supported
+          - if: "'{{context.reason}}' = 'cannot_handle_not_supported'"
+            then:
+              - action: utter_cannot_handle
+                next: END
+          # default
+          - else:
+              - action: action_ask_rephrase 
+                next: END

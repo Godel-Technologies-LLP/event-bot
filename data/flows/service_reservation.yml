@@ -13,7 +13,7 @@ flows:
       - collect: requested_service        
       - collect: event_category
       - collect: event_date
-        description: "Expect the date of the event and convert it to DD/MM/YYYY format. Use current year 2025."
+        description: "Expect the date of the event and convert it to DD/MM/YYYY format."
       - collect: event_duration
         description: "Get the duration of the event in number of hours"  
       - collect: venue_location

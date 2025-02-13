@@ -120,3 +120,4 @@ responses:
 actions:
  - display_payment_terms
  - action_ask_is_user_interested
+ - action_ask_rephrase
