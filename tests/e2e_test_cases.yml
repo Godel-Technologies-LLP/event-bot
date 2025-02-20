@@ -1,0 +1,22 @@
+test_cases:
+  - test_case: XJLmLqIFt1HFa0xrAAAB
+    steps:
+    - user: "/session_start"
+    - utter: utter_greet_user
+    - utter: utter_ask_requested_service
+    - user: "photography"
+    - utter: utter_ask_event_category
+    - user: "birthday"
+    - utter: utter_ask_event_date
+    - user: "3rd march"
+    - utter: utter_ask_event_duration
+    - user: "3"
+    - utter: utter_ask_venue_location
+    - user: "chennai"
+    - bot: "You have requested our photography service for a birthday_party at Chennai on 03/03/2025, lasting for 3.0 hours."
+    - bot: "Your booking for 3 hours of photography will cost 450.00 AED."
+    - bot: "50% to be paid for Booking Confirmation and balance to be paid on receiving the deliverables."
+    - bot: "Do you wish to proceed to the service booking?"
+    - user: "/SetSlots(is_user_interested=True)"
+    - utter: utter_ask_customer_email
+    - user: "jaraly@gmail.com"
