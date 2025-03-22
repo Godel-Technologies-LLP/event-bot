@@ -1,0 +1,49 @@
+slots:
+  customer_email:
+    type: text
+    mappings:
+      - type: from_llm      
+  
+  consecutive_silence_timeouts:
+    type: float  
+    initial_value: 0.0
+  
+  current_datetime:
+    type: text
+
+
+responses:
+  utter_inform_hangup:
+    - text: It seems you are not there anymore. I will hang up shortly.
+      metadata:
+        rephrase: True 
+  utter_ask_still_there:
+    - text: "Hello, are you still there?"
+      metadata:
+        rephrase: True
+  
+  utter_greet_user:
+    - text: "Welcome to iClick! We can help make your event more enjoyable and unforgettable  with our services."
+
+  utter_ask_customer_email:
+    - text: "Can you please provide your email address?"
+  
+  utter_cannot_handle:
+    - text: I'm sorry, I programmed to help you with managing your reservation for our services. I cannot do or respond to topics outside of my purpose 
+  
+  utter_inform_services:
+     - text: "I can help you:\n
+              1. Create new booking\n
+              2. View your existing bookings\n
+              3. Delete a booking\n
+              4. Update a booking"
+  
+  utter_list_services:
+   - text:   "These are the list of services that we offer:\n
+              1. Photography\n
+              2. Videography\n
+              3. 360 Spinner\n
+              4. Photobooth\n
+              5. Mirrorbooth"
+actions:
+ - action_correct_event_date

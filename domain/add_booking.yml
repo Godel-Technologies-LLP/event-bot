@@ -1,0 +1,113 @@
+
+slots:
+  requested_service:
+    type: text
+    mappings:
+      - type: from_llm
+        conditions:
+        - active_flow: add_booking
+  event_category:
+    type: text
+    mappings:
+      - type: from_llm
+        conditions:
+        - active_flow: add_booking      
+
+  event_date:
+    type: text
+    mappings:
+      - type: from_llm
+        conditions:
+        - active_flow: add_booking  
+  
+  event_duration:
+    type: float
+    mappings:
+      - type: from_llm
+        conditions:
+        - active_flow: add_booking      
+
+  venue_location:
+    type: text
+    mappings:
+      - type: from_llm
+        conditions:
+        - active_flow: add_booking   
+  
+  is_user_interested:
+    type: bool
+    initial_value: false
+    mappings:
+        - type: from_llm
+          conditions:
+            - active_flow: add_booking
+        
+  customer_feedback:
+    type: text
+    mappings:
+      - type: from_llm
+        conditions:
+        - active_flow: add_booking
+  
+
+
+responses:
+  utter_ask_requested_service:
+  - text: "Please explain your requirement"
+    metadata:
+      rephrase: True
+  
+  utter_ask_event_category:
+    - text: "What is the occasion?"
+  
+  utter_ask_event_date:
+    - text: "When is the event date"
+    
+  utter_ask_event_duration:
+    - text: "For how long do you need our service?" 
+
+  utter_ask_venue_location:
+    - text: "What is the event location (City Name)?"  
+
+  
+  utter_ask_customer_feedback:
+    - text: "Do you have any specific feedback for us?"    
+
+  utter_thank_interested_user:
+    - text: "Thanks for choosing us. Our representative will contact you soon"
+  
+  utter_thank_disinterested_user:
+    - text: "We hope to serve you in the future. Thank you for your time."
+  
+
+  utter_ask_service_details:
+    - text: "We have some questions for you? We will provide you with a quote for the same."
+  utter_ask_booking_number:
+    - text: "Please select the bookings you want to delete by selecting their booking id."
+  
+  utter_invalid_requested_service:
+   - text: "I'm sorry, We dont provide the service you requested.
+            These are the list of services that we offer:\n
+            1. Photography\n
+            2. Videography\n
+            3. 360 Spinner\n
+            4. Photobooth\n
+            5. Mirrorbooth"
+  
+  utter_invalid_date_format:
+   - text: "I'm sorry, I am having some trouble understanding the date.\n
+            Can you give it in one of the following formats:\n
+            1. DD/MM/YYYY\n
+            2. 20th of January 2024\n
+            3. 20th January 2024"
+            
+                
+actions:
+ - display_payment_terms
+ - action_ask_is_user_interested
+ - action_ask_rephrase
+ - action_forget_reminders
+ - action_set_reminder
+ - save_booking
+#  - validate_requested_service
+#  - validate_event_category

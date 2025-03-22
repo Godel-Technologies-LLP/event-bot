@@ -1,0 +1,9 @@
+flows:
+  list_bookings:
+    description: "List all the bookings for an user"
+    persisted_slots:
+      - customer_email
+    steps:      
+      - collect: customer_email
+        ask_before_filling: true
+      - action: list_bookings

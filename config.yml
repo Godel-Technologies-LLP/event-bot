@@ -1,0 +1,13 @@
+recipe: default.v1
+language: en
+pipeline:
+- name: NLUCommandAdapter
+- name: SingleStepLLMCommandGenerator
+  prompt_template: prompts/command-generator.jinja2
+  llm:
+    model_group: rasa_command_generation_model
+
+policies:
+- name: FlowPolicy
+- name: IntentlessPolicy
+assistant_id: 20250211-140426-gentle-rack

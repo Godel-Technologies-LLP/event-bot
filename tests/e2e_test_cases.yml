@@ -1,0 +1,83 @@
+test_cases:
+  - test_case: Happy path interested user
+    steps:
+    - user: "/session_start"
+    - utter: utter_greet_user
+    - utter: utter_ask_requested_service
+    - user: "I want to avail the photography service"
+    - utter: utter_ask_event_category
+    - user: "Its an annual day"
+    - utter: utter_ask_event_date
+    - user: "20th January"
+    - utter: utter_ask_event_duration
+    - user: "Only for 5 hours"
+    - utter: utter_ask_venue_location
+    - user: "Its in Chennai"
+    - bot: "You have requested our photography service for a annual_party at Chennai on 20/01/2025, lasting for 5.0 hours."
+    - bot: "Your booking for 5 hours of photography will cost 750.00 AED."
+    - bot: "50% to be paid for Booking Confirmation and balance to be paid on receiving the deliverables."
+    - bot: "Do you wish to proceed to the service booking?"
+    - user: "/SetSlots(is_user_interested=True)"
+    - utter: utter_ask_customer_email
+    - user: "Vishwa@godeltech.in"
+    - utter: utter_thank_interested_user
+
+  - test_case: Happy path disinterested user
+    steps:
+    - user: "/session_start"
+    - utter: utter_greet_user
+    - utter: utter_ask_requested_service
+    - user: "I want to avail your 360 spinner service"
+    - utter: utter_ask_event_category
+    - user: "its a birthday party"
+    - utter: utter_ask_event_date
+    - user: "30th Jul"
+    - utter: utter_ask_event_duration
+    - user: "6 hours"
+    - utter: utter_ask_venue_location
+    - user: "Delhi"
+    - bot: "You have requested our 360_spinner service for a birthday_party at Delhi on 30/07/2025, lasting for 6.0 hours."
+    - bot: "Your booking for 6 hours of 360_spinner will cost 2100.00 AED."
+    - bot: "50% to be paid for Booking confirmation and balance to be paid on event day after finishing setup"
+    - bot: "Do you wish to proceed to the service booking?"
+    - user: "/SetSlots(is_user_interested=False)"
+    - utter: utter_ask_customer_feedback
+    - user: "Its too expensive"
+    - utter: utter_thank_disinterested_user
+  
+  - test_case: User asks out of scope service
+  
+    steps:
+    - user: "/session_start"
+    - utter: utter_greet_user
+    - utter: utter_ask_requested_service
+    - user: "360 spinner"
+    - utter: utter_ask_event_category
+    - user: "Birthdat"
+    - bot: "I'm sorry, I didn't understand your answer. Please use one of these options/formats:\n1. exhibition\n2. conference\n3. seminar\n4. annual_party\n5. birthday_party\n6. anniversary"
+    - bot: "Let's try again"
+    - utter: utter_ask_event_category
+    - user: "Birthday"
+    - utter: utter_ask_event_date
+    - user: "20th Jan"
+    - utter: utter_ask_event_duration
+    - user: "6 hours"
+    - utter: utter_ask_venue_location    
+    - user: "Cheda"
+    - bot: "Our search returned that there is no such location. We could be wrong, too. Can you reconfirm"
+    - utter: utter_ask_venue_location
+    - user: "Ah. My bad. Its Chennai"
+    - bot: "You have requested our 360_spinner service for a birthday_party at Chennai on 20/01/2025, lasting for 6.0 hours."
+    - bot: "Your booking for 6 hours of 360_spinner will cost 2100.00 AED."
+    - bot: "50% to be paid for Booking confirmation and balance to be paid on event day after finishing setup"
+    - bot: "Do you wish to proceed to the service booking?"
+    - user: "/SetSlots(is_user_interested=False)"
+    - utter: utter_ask_customer_feedback
+    - user: "Just like that"
+    - utter: utter_thank_disinterested_user
+
+  # - test_case: Unresponsive user
+  # - test_case: multiple slots in same answer
+  # - test_case: User corrects a slot value while in the flow
+
+  

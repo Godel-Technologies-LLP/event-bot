@@ -1,0 +1,47 @@
+flows:
+  add_booking:
+    description: "Book our service from a list of services"    
+    persisted_slots:
+      - requested_service
+      - event_category
+      - venue_location
+      - event_date
+      - event_duration  
+      - customer_email
+      - customer_feedback  
+      - is_user_interested   
+    steps:
+      - collect: requested_service
+        description: collect the service the user is interested. Map what the user has entered to one of the following "photography", "videography" , "360_spinner", "photo_booth", "mirror_booth"
+      - collect: event_category
+        description: collect the event type. Map what the user has entered to one of the following "exhibition", "conference", "seminar", "annual_party", "birthday_party", "anniversary"    
+      - collect: event_duration
+        description: "Get the duration of the event in number of hours. If the user says in days, each day is 8 hours. e.g. one and half days = 12 hours"  
+      - collect: venue_location
+        description: "Expect the city from the customer. Save the data in a standard naming convention of the city."
+      - collect: event_date
+        description: Expect the date of the event and convert it to DD/MM/YYYY format. If year is not given, assume current year (2025). If the user gives relative time like "next year", "next month", "tomorrow" or "later today", then save the date as 01/01/1900
+        next:
+        - if: slots.event_date is "01/01/1900"
+          then:
+           - action: action_correct_event_date
+             next: event_processing    
+        - else: event_processing
+
+      - id: event_processing
+        action: display_payment_terms
+      - collect: is_user_interested
+        ask_before_filling: true
+        next:
+        - if: slots.is_user_interested
+          then:
+          - collect: customer_email
+            ask_before_filling: true
+          - action: save_booking
+          - action: utter_thank_interested_user          
+            next: END
+        - else:
+          - collect: customer_feedback
+          - action: utter_thank_disinterested_user          
+            next: END
+
